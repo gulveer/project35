@@ -6,7 +6,7 @@ var position;
 
 function preload(){
 back = loadImage("images/Hot Air Ballon-01.png")
-img = loadImage("images/Hot Air Ballon-02.png")  
+img = loadAnimation("images/Hot Air Ballon-02.png","images/Hot Air Ballon-03.png","images/Hot Air Ballon-04.png"); 
 }
 
 function setup() {
@@ -15,9 +15,11 @@ function setup() {
   
   database = firebase.database();
   
-  balloon = createSprite(250,250,10,10);
+  balloon = createSprite(250,390,10,10);
+  balloon.addAnimation(img);
+  balloon.scale = 0.5;
   
- var position = database.ref('balloon/height');
+  var position = database.ref('balloon/height');
   position.on("value", readHeight, showError);
   
 }
@@ -33,14 +35,15 @@ function draw() {
   }
   else if(keyDown(UP_ARROW)){
     balloon.y = balloon.y -10;
-    balloon.scale = balloon.scale + 0.01;
+    balloon.scale = balloon.scale - 0.01;
   }
   else if(keyDown(DOWN_ARROW)){
     balloon.y = balloon.y +10;
-    balloon.scale = balloon.scale - 0.01;
+    balloon.scale = balloon.scale + 0.01;
   }
   drawSprites();
   
+  text("USE ARROW KEYS TO MOVE THE BALLOON",10,10);
   
 }
 
