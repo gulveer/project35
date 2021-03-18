@@ -1,25 +1,25 @@
-var balloon, img;
+var balloon, balloonimg;
 var back;
 var database;
 var position;
-
+var h;
 
 function preload(){
 back = loadImage("images/Hot Air Ballon-01.png")
-img = loadAnimation("images/Hot Air Ballon-02.png","images/Hot Air Ballon-03.png","images/Hot Air Ballon-04.png"); 
+balloonimg = loadAnimation("images/Hot Air Ballon-02.png","images/Hot Air Ballon-03.png","images/Hot Air Ballon-04.png"); 
 }
 
 function setup() {
-  console.log(database);
+ 
   createCanvas(500,500);
   
   database = firebase.database();
   
   balloon = createSprite(250,390,10,10);
-  balloon.addAnimation(img);
+  balloon.addAnimation("balloonimage",balloonimg);
   balloon.scale = 0.5;
   
-  var position = database.ref('balloon/height');
+  var position = database.ref('balloon/position');
   position.on("value", readHeight, showError);
   
 }
@@ -48,16 +48,16 @@ function draw() {
 }
 
 function updateHeight(x,y){
-database.ref('balloon/height').set({
-'x': height.x + x,
-'y': height.y + y
+database.ref('balloon/position').set({
+'x': h.x + x,
+'y': h.y + y
 })
 }
 
 function readHeight(data){
-height = data.val();
-balloon.x = height.x;
-balloon.y = height.y;
+h = data.val();
+balloon.x = h.x;
+balloon.y = h.y;
 }
 
 function showError(){
