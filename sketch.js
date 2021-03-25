@@ -28,17 +28,17 @@ function draw() {
   background(back);  
   
   if(keyDown(LEFT_ARROW)){
-    balloon.x = balloon.x -10;
+    updateHeight(-10,0);
    }
   else if(keyDown(RIGHT_ARROW)){
-    balloon.x = balloon.x +10;
+    updateHeight(+10,0);
   }
   else if(keyDown(UP_ARROW)){
-    balloon.y = balloon.y -10;
+    updateHeight(0,-10);
     balloon.scale = balloon.scale - 0.01;
   }
   else if(keyDown(DOWN_ARROW)){
-    balloon.y = balloon.y +10;
+    updateHeight(0,+10);
     balloon.scale = balloon.scale + 0.01;
   }
   drawSprites();
